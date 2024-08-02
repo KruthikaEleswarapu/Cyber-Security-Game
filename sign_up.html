@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+</head>
+<body>
+    <h2>Sign Up</h2>
+    <form onsubmit="return createUser()">
+        <label for="newEmail">Email:</label>
+        <input type="email" id="newEmail" name="newEmail" placeholder="Enter your email" required><br>
+
+        <label for="newPassword">Password:</label>
+        <input type="password" id="newPassword" name="newPassword" placeholder="Enter your password" required><br>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <p>Already have an account? <a href="login_page.html">Log In</a></p>
+
+    <script>
+        function createUser() {
+            var newEmail = document.getElementById("newEmail").value.toLowerCase();
+            var newPassword = document.getElementById("newPassword").value;
+
+            // Retrieve the credentials array from localStorage
+            var validCredentials = JSON.parse(localStorage.getItem('validCredentials')) || [];
+
+            // Check if the new user email already exists
+            var userExists = validCredentials.some(function (credential) {
+                return credential.email === newEmail;
+            });
+
+            if (!userExists) {
+                // Add the new user to the credentials array
+                validCredentials.push({ email: newEmail, password: newPassword });
+
+                // Save the updated credentials array in localStorage
+                localStorage.setItem('validCredentials', JSON.stringify(validCredentials));
+
+                // Log the new user (for demonstration purposes)
+                console.log("New user registered with Email: " + newEmail);
+
+                // Clear the signup form
+                document.getElementById("newEmail").value = "";
+                document.getElementById("newPassword").value = "";
+                var link = document.createElement("a");
+
+// Set the text that will be displayed as the link
+link.textContent = "sign up";
+
+// Set the href attribute to specify the link's URL
+link.setAttribute("href", "C:\Users\ASUS\Creative Cloud Files\Desktop\new1\games.html");
+document.body.appendChild(games.html);
+                return false; // Prevent form submission
+            } else {
+                alert("User with this email already exists. Please choose a different email.");
+                return false; // Prevent form submission
+            }
+        }
+    </script>
+</body>
+</html>

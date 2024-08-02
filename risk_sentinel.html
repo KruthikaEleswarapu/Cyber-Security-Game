@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Risk Sentinel</title>
+        <style>
+            body {
+                background-image: url('bg4.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                color: white; /* Set text color to black */
+            }
+            h1 {
+                font-size: 50px;
+                color: white;
+            }
+            p {
+                font-size: 30px;
+                color: white;
+            }
+            .options label {
+                display: block;
+                font-size: 20px;
+            }
+            button[type="submit"] {
+                font-size: 30px;
+                padding: 15px 20px;
+                background-color: black; /* Set the background color to black */
+                color: white; /* Set text color to white */
+            }
+        </style>
+    </head>
+<body>
+    <h1>RISK SENTINEL</h1>
+    <p>Test your cybersecurity knowledge with respect to Risk Assessment! You have 10 questions. Good luck!</p>
+
+    <div id="quiz-container">
+        <p id="question"></p>
+        <form id="quiz-form" class="options">
+            <label>
+                <input type="radio" name="answer" value="A">
+                <span id="choice-A"></span>
+            </label>
+            <label>
+                <input type="radio" name="answer" value="B">
+                <span id="choice-B"></span>
+            </label>
+            <label>
+                <input type="radio" name="answer" value="C">
+                <span id="choice-C"></span>
+            </label>
+            <label>
+                <input type="radio" name="answer" value="D">
+                <span id="choice-D"></span>
+            </label>
+            <button type="submit">Next</button>
+        </form>
+    </div>
+
+    <p id="result"></p>
+
+    <script>
+       const questions = [
+       {
+        "question": "What is the primary goal of risk assessment in cybersecurity?",
+        "options": ["To create secure passwords", "To detect and remove malware", "To identify and mitigate security risks", "To encrypt data"],
+        "correct_answer": "To identify and mitigate security risks",
+    },
+    {
+        "question": "What is a 'threat' in the context of risk assessment?",
+        "options": ["A potential harm or danger to an asset", "A software tool for cybersecurity", "A secure network segment", "A type of encryption method"],
+        "correct_answer": "A potential harm or danger to an asset",
+    },
+    {
+        "question": "What is 'vulnerability' in risk assessment?",
+        "options": ["The strength of a security measure", "A known weakness that could be exploited", "A type of encryption key", "A type of network protocol"],
+        "correct_answer": "A known weakness that could be exploited",
+    },
+    {
+        "question": "What is 'likelihood' in risk assessment?",
+        "options": ["The impact of a threat", "The probability of a threat occurring", "A type of password", "The cost of risk mitigation"],
+        "correct_answer": "The probability of a threat occurring",
+    },
+    {
+        "question": "What is 'impact' in risk assessment?",
+        "options": ["The likelihood of a threat occurring", "The cost of risk mitigation", "The effect or harm caused by a threat", "The strength of a security measure"],
+        "correct_answer": "The effect or harm caused by a threat",
+    },
+    {
+        "question": "What is a 'risk assessment matrix' used for in cybersecurity?",
+        "options": ["To encrypt data", "To visualize and prioritize risks based on likelihood and impact", "To remove malware", "To create strong passwords"],
+        "correct_answer": "To visualize and prioritize risks based on likelihood and impact",
+    },
+    {
+        "question": "What is 'risk mitigation' in risk assessment?",
+        "options": ["A method for identifying threats", "A strategy for reducing the impact of risks", "A type of firewall", "A type of encryption method"],
+        "correct_answer": "A strategy for reducing the impact of risks",
+    },
+    {
+        "question": "What is 'residual risk' in risk assessment?",
+        "options": ["The initial risk before any mitigation", "The risk that remains after mitigation efforts", "The risk of password breaches", "The likelihood of a threat occurring"],
+        "correct_answer": "The risk that remains after mitigation efforts",
+    },
+    {
+        "question": "What is 'risk acceptance' in risk assessment?",
+        "options": ["A method for removing risks", "A decision to tolerate a certain level of risk without mitigation", "A strategy for reducing the impact of risks", "A type of network protocol"],
+        "correct_answer": "A decision to tolerate a certain level of risk without mitigation",
+    },
+    {
+        "question": "What is 'risk avoidance' in risk assessment?",
+        "options": ["A method for identifying threats", "A strategy for reducing the impact of risks", "A decision to eliminate a risk by avoiding the associated activity or asset", "A type of password"],
+        "correct_answer": "A decision to eliminate a risk by avoiding the associated activity or asset",
+    },
+    {
+        "question": "What is 'risk transfer' in risk assessment?",
+        "options": ["A method for removing risks", "A strategy for reducing the impact of risks", "A decision to shift the responsibility for a risk to a third party", "A type of encryption key"],
+        "correct_answer": "A decision to shift the responsibility for a risk to a third party",
+    },
+    {
+        "question": "What is a 'risk assessment framework' used for in cybersecurity?",
+        "options": ["To create secure passwords", "To provide a structured approach to assess and manage risks", "To encrypt data", "To detect and remove malware"],
+        "correct_answer": "To provide a structured approach to assess and manage risks",
+    },
+    {
+        "question": "What is 'asset valuation' in risk assessment?",
+        "options": ["A method for removing risks", "The process of assigning a value to an asset based on its importance", "A type of firewall", "A type of encryption method"],
+        "correct_answer": "The process of assigning a value to an asset based on its importance",
+    },
+    {
+        "question": "What is 'risk appetite' in risk assessment?",
+        "options": ["The level of risk that is acceptable to an organization", "A method for identifying threats", "A strategy for reducing the impact of risks", "A type of network protocol"],
+        "correct_answer": "The level of risk that is acceptable to an organization",
+    },
+    {
+        "question": "What is 'risk register' in risk assessment?",
+        "options": ["A list of all the risks in an organization", "A type of antivirus software", "A way to generate passwords", "A secure network segment"],
+        "correct_answer": "A list of all the risks in an organization",
+    },
+    {
+        "question": "What is 'risk communication' in risk assessment?",
+        "options": ["A method for cleaning computers", "The process of sharing risk information with stakeholders", "A type of encryption", "A type of gardening"],
+        "correct_answer": "The process of sharing risk information with stakeholders",
+    },
+    {
+        "question": "What is a 'risk assessment report' used for in cybersecurity?",
+        "options": ["To make security fun", "To communicate the results of a risk assessment, including identified risks and mitigation strategies", "To create complex passwords", "To block all network traffic"],
+        "correct_answer": "To communicate the results of a risk assessment, including identified risks and mitigation strategies",
+    },
+    {
+        "question": "What is 'threat modeling' in risk assessment?",
+        "options": ["A method for identifying threats", "A process for evaluating and managing security threats and vulnerabilities", "A type of password", "A type of network protocol"],
+        "correct_answer": "A process for evaluating and managing security threats and vulnerabilities",
+    },
+    {
+        "question": "What is 'business impact analysis' in risk assessment?",
+        "options": ["A type of financial analysis", "A method for removing risks", "The process of identifying critical business functions and their dependencies", "A type of encryption method"],
+        "correct_answer": "The process of identifying critical business functions and their dependencies",
+    },
+    {
+        "question": "What is 'risk assessment software' used for in cybersecurity?",
+        "options": ["A tool for cleaning computers", "To identify and manage risks more efficiently", "A way to generate passwords", "A type of firewall"],
+        "correct_answer": "To identify and manage risks more efficiently",
+    },
+    {
+        "question": "What is 'quantitative risk assessment' in cybersecurity?",
+        "options": ["A method for removing risks", "An approach that uses data and metrics to assess and quantify risks", "A type of encryption key", "A type of malware"],
+        "correct_answer": "An approach that uses data and metrics to assess and quantify risks",
+    },
+    {
+        "question": "What is 'qualitative risk assessment' in cybersecurity?",
+        "options": ["A process for evaluating risks", "An approach that uses data and metrics to assess and quantify risks", "A method for cleaning computers", "A type of network protocol"],
+        "correct_answer": "A process for evaluating risks",
+    },
+    {
+        "question": "What is 'risk treatment' in risk assessment?",
+        "options": ["A method for removing risks", "The process of selecting and implementing risk mitigation measures", "A type of antivirus software", "A type of encryption method"],
+        "correct_answer": "The process of selecting and implementing risk mitigation measures",
+    },
+    {
+        "question": "What is a 'risk assessment checklist' used for in cybersecurity?",
+        "options": ["To create secure passwords", "To provide a structured list of items to consider during a risk assessment", "To encrypt data", "To detect and remove malware"],
+        "correct_answer": "To provide a structured list of items to consider during a risk assessment",
+    },
+    {
+        "question": "What is a 'risk assessment team' in cybersecurity?",
+        "options": ["A group of hackers", "A team of experts responsible for conducting risk assessments", "A way to generate passwords", "A type of firewall"],
+        "correct_answer": "A team of experts responsible for conducting risk assessments",
+    },
+    {
+        "question": "What is 'risk monitoring' in risk assessment?",
+        "options": ["A method for removing risks", "The ongoing process of tracking and assessing risks", "A strategy for reducing the impact of risks", "A type of encryption key"],
+        "correct_answer": "The ongoing process of tracking and assessing risks",
+    },
+    {
+        "question": "What is 'likelihood assessment' in risk assessment?",
+        "options": ["A method for removing risks", "The evaluation of the probability of a threat occurring", "A strategy for reducing the impact of risks", "A type of network protocol"],
+        "correct_answer": "The evaluation of the probability of a threat occurring",
+    },
+    {
+        "question": "What is 'risk assessment methodology' used for in cybersecurity?",
+        "options": ["To encrypt data", "A structured approach for conducting risk assessments", "To remove malware", "To create strong passwords"],
+        "correct_answer": "A structured approach for conducting risk assessments",
+    },
+    {
+        "question": "What is 'inherent risk' in risk assessment?",
+        "options": ["The initial risk before any mitigation", "The risk that remains after mitigation efforts", "The risk of password breaches", "The likelihood of a threat occurring"],
+        "correct_answer": "The initial risk before any mitigation",
+    },
+    {
+        "question": "What is 'risk assessment policy' in cybersecurity?",
+        "options": ["A type of password policy", "A documented set of guidelines and procedures for conducting risk assessments", "A type of network protocol", "A type of encryption method"],
+        "correct_answer": "A documented set of guidelines and procedures for conducting risk assessments",
+    },
+    {
+        "question": "What is 'risk assessment training' used for in cybersecurity?",
+        "options": ["To train hackers", "To educate individuals on how to conduct risk assessments", "To create secure passwords", "To detect and remove malware"],
+        "correct_answer": "To educate individuals on how to conduct risk assessments",
+    },
+    {
+        "question": "What is 'risk assessment framework' in cybersecurity?",
+        "options": ["A way to assess the risk of frameworks", "A structured approach for assessing and managing risks", "A type of firewall", "A type of encryption key"],
+        "correct_answer": "A structured approach for assessing and managing risks",
+    },
+    {
+        "question": "What is 'risk analysis' in risk assessment?",
+        "options": ["A method for removing risks", "The process of identifying and evaluating risks", "A type of antivirus software", "A type of encryption method"],
+        "correct_answer": "The process of identifying and evaluating risks",
+    },
+    {
+        "question": "What is 'risk assessment process' in cybersecurity?",
+        "options": ["To encrypt data", "A series of steps and activities to identify, assess, and manage risks", "To remove malware", "To create strong passwords"],
+        "correct_answer": "A series of steps and activities to identify, assess, and manage risks",
+    },
+    {
+        "question": "What is 'risk assessment tool' used for in cybersecurity?",
+        "options": ["To create secure passwords", "Software or applications designed to assist in risk assessment processes", "To encrypt data", "To detect and remove malware"],
+        "correct_answer": "Software or applications designed to assist in risk assessment processes",
+    },
+    {
+        "question": "What is 'risk register template' in risk assessment?",
+        "options": ["A template for creating a list of risks", "A type of network protocol", "A type of encryption method", "A secure network segment"],
+        "correct_answer": "A template for creating a list of risks",
+    },
+    {
+        "question": "What is 'risk assessment standard' in cybersecurity?",
+        "options": ["A type of password standard", "A set of guidelines and principles for conducting risk assessments", "A way to generate passwords", "A type of firewall"],
+        "correct_answer": "A set of guidelines and principles for conducting risk assessments",
+    },
+    {
+        "question": "What is 'security risk assessment' in cybersecurity?",
+        "options": ["The process of assessing and managing risks to an organization's information security", "A type of encryption key", "A method for removing risks", "A type of malware"],
+        "correct_answer": "The process of assessing and managing risks to an organization's information security",
+    },
+    {
+        "question": "What is 'security risk assessment methodology' used for in cybersecurity?",
+        "options": ["A method for removing risks", "A structured approach for conducting security risk assessments", "A type of antivirus software", "A type of encryption method"],
+        "correct_answer": "A structured approach for conducting security risk assessments",
+    },
+    {
+        "question": "What is 'risk identification' in risk assessment?",
+        "options": ["A method for removing risks", "The process of identifying and documenting potential risks", "A strategy for reducing the impact of risks", "A type of network protocol"],
+        "correct_answer": "The process of identifying and documenting potential risks",
+    },
+    {
+        "question": "What is 'risk evaluation' in risk assessment?",
+        "options": ["A method for removing risks", "The process of comparing identified risks against established criteria", "A type of firewall", "A type of encryption key"],
+        "correct_answer": "The process of comparing identified risks against established criteria",
+    },
+    {
+        "question": "What is 'risk control' in risk assessment?",
+        "options": ["A method for removing risks", "The process of selecting and implementing risk mitigation measures", "A type of password", "A type of malware"],
+        "correct_answer": "The process of selecting and implementing risk mitigation measures",
+    },
+    {
+        "question": "What is 'risk assessment report' in cybersecurity?",
+        "options": ["A type of password report", "A document that summarizes the results of a risk assessment", "A type of network protocol", "A type of encryption method"],
+        "correct_answer": "A document that summarizes the results of a risk assessment",
+    },
+    {
+        "question": "What is 'residual risk' in risk assessment?",
+        "options": ["The initial risk before any mitigation", "The risk that remains after mitigation efforts", "The risk of password breaches", "The likelihood of a threat occurring"],
+        "correct_answer": "The risk that remains after mitigation efforts",
+    },
+    {
+        "question": "What is 'risk assessment software' used for in cybersecurity?",
+        "options": ["To create secure passwords", "Software tools designed to assist in conducting risk assessments", "To encrypt data", "To remove malware"],
+        "correct_answer": "Software tools designed to assist in conducting risk assessments",
+    },
+    {
+        "question": "What is 'risk assessment template' in risk assessment?",
+        "options": ["A template for assessing risks", "A type of firewall", "A type of encryption key", "A secure network segment"],
+        "correct_answer": "A template for assessing risks",
+    },
+    {
+        "question": "What is 'risk assessment matrix' in cybersecurity?",
+        "options": ["A type of network matrix", "A visual tool used to assess and prioritize risks", "A type of antivirus software", "A type of encryption method"],
+        "correct_answer": "A visual tool used to assess and prioritize risks",
+    },
+    {
+        "question": "What is 'risk assessment workshop' in risk assessment?",
+        "options": ["A method for removing risks", "A collaborative session involving stakeholders to identify and assess risks", "A type of password", "A type of malware"],
+        "correct_answer": "A collaborative session involving stakeholders to identify and assess risks",
+    },
+    {
+        "question": "What is 'threat and risk assessment' in cybersecurity?",
+        "options": ["A type of encryption key", "The process of identifying and assessing threats and associated risks", "A method for removing risks", "A type of network protocol"],
+        "correct_answer": "The process of identifying and assessing threats and associated risks",
+    },
+    {
+        "question": "What is 'vulnerability assessment' in risk assessment?",
+        "options": ["A method for removing vulnerabilities", "The process of identifying and assessing vulnerabilities in a system or network", "A way to generate passwords", "A type of firewall"],
+        "correct_answer": "The process of identifying and assessing vulnerabilities in a system or network",
+    },
+    {
+        "question": "What is 'asset-based risk assessment' in cybersecurity?",
+        "options": ["A method for assessing assets", "An approach that focuses on identifying and assessing risks to specific assets", "A type of antivirus software", "A type of encryption method"],
+        "correct_answer": "An approach that focuses on identifying and assessing risks to specific assets",
+    },
+    {
+        "question": "What is 'quantitative risk assessment' in risk assessment?",
+        "options": ["A process for evaluating risks", "An approach that uses data and metrics to assess and quantify risks", "A method for cleaning computers", "A type of network protocol"],
+        "correct_answer": "An approach that uses data and metrics to assess and quantify risks",
+    },
+    {
+        "question": "What is 'qualitative risk assessment' in cybersecurity?",
+        "options": ["A process for evaluating risks", "An approach that uses data and metrics to assess and quantify risks", "A method for cleaning computers", "A type of network protocol"],
+        "correct_answer": "A process for evaluating risks",
+    },
+    {
+        "question": "What is 'risk treatment' in risk assessment?",
+        "options": ["A method for removing risks", "The process of selecting and implementing risk mitigation measures", "A type of antivirus software", "A type of encryption method"],
+        "correct_answer": "The process of selecting and implementing risk mitigation measures",
+    },
+    {
+        "question": "What is a 'risk assessment checklist' used for in cybersecurity?",
+        "options": ["To create secure passwords", "To provide a structured list of items to consider during a risk assessment", "To encrypt data", "To detect and remove malware"],
+        "correct_answer": "To provide a structured list of items to consider during a risk assessment",
+    },
+    {
+        "question": "What is a 'risk assessment team' in cybersecurity?",
+        "options": ["A group of hackers", "A team of experts responsible for conducting risk assessments", "A way to generate passwords", "A type of firewall"],
+        "correct_answer": "A team of experts responsible for conducting risk assessments",
+    },
+    {
+        "question": "What is 'risk monitoring' in risk assessment?",
+        "options": ["A method for removing risks", "The ongoing process of tracking and assessing risks", "A strategy for reducing the impact of risks", "A type of encryption key"],
+        "correct_answer": "The ongoing process of tracking and assessing risks",
+    },
+    {
+        "question": "What is 'likelihood assessment' in risk assessment?",
+        "options": ["A method for removing risks", "The evaluation of the probability of a threat occurring", "A strategy for reducing the impact of risks", "A type of network protocol"],
+        "correct_answer": "The evaluation of the probability of a threat occurring",
+    },
+    {
+        "question": "What is 'risk assessment methodology' used for in cybersecurity?",
+        "options": ["To encrypt data", "A structured approach for conducting risk assessments", "To remove malware", "To create strong passwords"],
+        "correct_answer": "A structured approach for conducting risk assessments",
+    },
+    {
+        "question": "What is 'inherent risk' in risk assessment?",
+        "options": ["The initial risk before any mitigation", "The risk that remains after mitigation efforts", "The risk of password breaches", "The likelihood of a threat occurring"],
+        "correct_answer": "The initial risk before any mitigation",
+    },
+    {
+        "question": "What is 'risk assessment policy' in cybersecurity?",
+        "options": ["A type of password policy", "A documented set of guidelines and procedures for conducting risk assessments", "A type of network protocol", "A type of encryption method"],
+        "correct_answer": "A documented set of guidelines and procedures for conducting risk assessments",
+    },
+    {
+        "question": "What is 'risk assessment training' used for in cybersecurity?",
+        "options": ["To train hackers", "To educate individuals on how to conduct risk assessments", "To create secure passwords", "To detect and remove malware"],
+        "correct_answer": "To educate individuals on how to conduct risk assessments",
+    },
+    {
+        "question": "What is 'risk assessment framework' in cybersecurity?",
+        "options": ["A way to assess the risk of frameworks", "A structured approach for assessing and managing risks", "A type of firewall", "A type of encryption key"],
+        "correct_answer": "A structured approach for assessing and managing risks",
+    },
+    {
+        "question": "What is 'risk analysis' in risk assessment?",
+        "options": ["A method for removing risks", "The process of identifying and evaluating risks", "A type of antivirus software", "A type of encryption method"],
+        "correct_answer": "The process of identifying and evaluating risks",
+    },
+    {
+        "question": "What is 'risk assessment process' in cybersecurity?",
+        "options": ["To encrypt data", "A series of steps and activities to identify, assess, and manage risks", "To remove malware", "To create strong passwords"],
+        "correct_answer": "A series of steps and activities to identify, assess, and manage risks",
+    },
+    {
+        "question": "What is 'risk assessment tool' used for in cybersecurity?",
+        "options": ["To create secure passwords", "Software or applications designed to assist in risk assessment processes", "To encrypt data", "To detect and remove malware"],
+        "correct_answer": "Software or applications designed to assist in risk assessment processes",
+    },
+    {
+        "question": "What is 'risk register template' in risk assessment?",
+        "options": ["A template for creating a list of risks", "A type of network protocol", "A type of encryption method", "A secure network segment"],
+        "correct_answer": "A template for creating a list of risks",
+    },
+    {
+        "question": "What is 'risk assessment standard' in cybersecurity?",
+        "options": ["A type of password standard", "A set of guidelines and principles for conducting risk assessments", "A way to generate passwords", "A type of firewall"],
+        "correct_answer": "A set of guidelines and principles for conducting risk assessments",
+    },
+    {
+        "question": "What is 'security risk assessment' in cybersecurity?",
+        "options": ["The process of assessing and managing risks to an organization's information security", "A type of encryption key", "A method for removing risks", "A type of malware"],
+        "correct_answer": "The process of assessing and managing risks to an organization's information security",
+    },
+    {
+        "question": "What is 'security risk assessment methodology' used for in cybersecurity?",
+        "options": ["A method for removing risks", "A structured approach for conducting security risk assessments", "A type of antivirus software", "A type of encryption method"],
+        "correct_answer": "A structured approach for conducting security risk assessments",
+    },
+    {
+        "question": "What is 'risk identification' in risk assessment?",
+        "options": ["A method for removing risks", "The process of identifying and documenting potential risks", "A strategy for reducing the impact of risks", "A type of network protocol"],
+        "correct_answer": "The process of identifying and documenting potential risks",
+    },
+    {
+        "question": "What is 'risk evaluation' in risk assessment?",
+        "options": ["A method for removing risks", "The process of comparing identified risks against established criteria", "A type of firewall", "A type of encryption key"],
+        "correct_answer": "The process of comparing identified risks against established criteria",
+    },
+    {
+        "question": "What is 'risk control' in risk assessment?",
+        "options": ["A method for removing risks", "The process of selecting and implementing risk mitigation measures", "A type of password", "A type of malware"],
+        "correct_answer": "The process of selecting and implementing risk mitigation measures",
+    },
+    {
+        "question": "What is 'risk assessment report' in cybersecurity?",
+        "options": ["A type of password report", "A document that summarizes the results of a risk assessment", "A type of network protocol", "A type of encryption method"],
+        "correct_answer": "A document that summarizes the results of a risk assessment",
+    },
+];
+
+// You can now use this array of questions in your code.
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        shuffleArray(questions);
+
+        let currentQuestion = 0;
+    let score = 0;
+
+    const quizForm = document.getElementById("quiz-form");
+    const questionText = document.getElementById("question");
+    const choiceA = document.getElementById("choice-A");
+    const choiceB = document.getElementById("choice-B");
+    const choiceC = document.getElementById("choice-C");
+    const choiceD = document.getElementById("choice-D");
+    const resultText = document.getElementById("result");
+
+    function displayQuestion() {
+        const q = questions[currentQuestion];
+        questionText.textContent = q.question;
+        [choiceA, choiceB, choiceC, choiceD].forEach((choice, i) => {
+            choice.textContent = q.options[i];
+        });
+    }
+
+    function checkAnswer(answer) {
+    const correctAnswer = questions[currentQuestion].correct_answer.trim(); // Remove leading/trailing spaces
+    if (answer === correctAnswer) {
+        score++; // Increment the score for correct answers
+    }
+    currentQuestion++;
+    if (currentQuestion < 10) {
+        displayQuestion();
+    } else {
+        quizForm.style.display = "none";
+        resultText.textContent = `Quiz completed! Your score: ${score} / 10`;
+    }
+}
+    quizForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+        if (selectedAnswer) {
+            checkAnswer(selectedAnswer.value);
+            selectedAnswer.checked = false;
+        }
+    });
+
+    displayQuestion();
+</script>
+
+<style>
+    /* Style for the back button */
+    #backButton {
+      position: fixed;
+      bottom: 20px; /* Adjust the distance from the bottom as needed */
+      right: 20px; /* Adjust the distance from the right as needed */
+    }
+  </style>
+
+<button id="backButton">Back to Games</button>
+
+<script>
+  // JavaScript code for handling the back button click event
+  document.getElementById("backButton").addEventListener("click", function() {
+    // Navigate back to games.html
+    window.location.href = "games.html";
+  });
+</script>

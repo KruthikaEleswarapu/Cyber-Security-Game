@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamified Platform</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Gamified Platform for Cyber Security Awareness</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#games">Games</a></li>
+            <li><a href="#logout" id="logout-button">Logout</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <h2>Home</h2>
+        <p>This is a platform to play and learn about Cyber Security.
+            Play games and gain credits.
+            The credits you gain while playing can be used for the workshops we conduct in the future.
+        </p>
+        <img src="2.png" alt="Image 1" width="200" height="150">
+    </section>
+
+    <section id="services">
+        <h2>Services</h2>
+        <p>Discover the services we offer.</p>
+    </section>
+    
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Contact us for more information.<br>
+            E-mail: deeps@gmail.com<br>
+            Mobile: +91 9999999999
+        </p>
+    </section>
+    <section id="games">
+        <h2>Games</h2>
+        <p>Play our featured game:<strong> CYBER SMARTS CHALLENGE</strong>.<br>
+            <a href='cybersec.html'>Play Now</a>
+        </p>
+        <p>Play our featured game: <strong>RISK SENTINEL</strong>.<br>
+            <a href="risk_sentinel.html">Play Now</a>
+        </p>
+        <p>Play our featured game: <strong>INCIDENT RESPONSE MASTERY</strong>.<br>
+            <a href="incident.html">Play Now</a>
+        </p>
+        <p>Play our featured game: <strong>INCIDENT COMMANDER</strong>.<br>
+            <a href="incidentresponse.html">Play Now</a>
+        </p>
+        <p>Play our featured game: <strong>SECURITY SAVVY SHOWDOWN</strong>.<br>
+            <a href="securitysavvy.html">Play Now</a>
+        </p>
+        <p>Play our featured game: <strong>GUARDIAN OF CYBER WORLD</strong>.<br>
+            <a href="guardian.html">Play Now</a>
+        </p>
+        <p>Play our featured game: <strong>PASSWORD FORTIFY</strong>.<br>
+            <a href="passwordfortify.html">Play Now</a>
+        </p>
+    </section>
+    <section id="logout">
+        <h2>Logout</h2>
+        <p>Click the "Logout" button to return to the start page.</p>
+    </section>
+    <footer>
+        <p>&copy; 2023 Gamified platform</p>
+    </footer>
+
+    <script>
+        document.getElementById("logout-button").addEventListener("click", function() {
+            window.location.href = "start.html"; // Replace "startpage.html" with your start page URL
+        });
+    </script>
+</body>
+</html>

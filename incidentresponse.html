@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Risk Sentinel</title>
+    <style>
+        body {
+            background-image: url('bg5.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        h1 {
+            font-size: 50px;
+            color: white;
+        }
+        p {
+            font-size: 30px;
+            color: white;
+        }
+        .options label {
+            display: block;
+            font-size: 20px;
+        }
+        button[type="submit"] {
+            font-size: 30px;
+            padding: 15px 20px;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>INCIDENT RESPONSE MASTERY</h1>
+    <p>Test your cybersecurity knowledge with respect to Risk Assessment! You have 10 questions. Good luck!</p>
+
+    <div id="quiz-container">
+        <p id="question"></p>
+        <form id="quiz-form" class="options">
+            <label>
+                <input type="radio" name="answer" value="A">
+                <span id="choice-A"></span>
+            </label>
+            <label>
+                <input type="radio" name="answer" value="B">
+                <span id="choice-B"></span>
+            </label>
+            <label>
+                <input type="radio" name="answer" value="C">
+                <span id="choice-C"></span>
+            </label>
+            <label>
+                <input type="radio" name="answer" value="D">
+                <span id="choice-D"></span>
+            </label>
+            <button type="submit">Next</button>
+        </form>
+    </div>
+
+    <p id="result"></p>
+
+    <script>
+        const questions = [
+{
+  question:
+    'What is the first step in the incident response process after a security incident is identified?',
+  options: [
+    'Contain the incident',
+    'Eradicate the threat',
+    'Recover from the incident',
+    'Notify stakeholders',
+  ],
+  correct_answer: 'Contain the incident',
+},
+{
+question: 
+"What is 'threat intelligence' in incident response?",
+options: ["Information about potential and current cyber threats and attacks", "A type of encryption method", "A method for blocking network traffic", "A type of malware"],
+correct_answer: "Information about potential and current cyber threats and attacks",
+},
+{
+question: "What is the role of a 'digital evidence custodian' in incident response?",
+options: ["To preserve and manage digital evidence", "To investigate security incidents", "To handle external communications", "To make coffee for the team"],
+correct_answer: "To preserve and manage digital evidence",
+},
+{
+question: "What is a 'root cause analysis' in incident response?",
+options: ["A process for identifying and addressing the underlying causes of incidents", "A type of malware", "A type of encryption method", "A method for preventing data breaches"],
+correct_answer: "A process for identifying and addressing the underlying causes of incidents",
+},
+{
+question: "What is 'incident classification' in incident response?",
+options: ["Categorizing incidents based on their severity and impact", "A type of network firewall", "A method for blocking network traffic", "A type of encryption method"],
+correct_answer: "Categorizing incidents based on their severity and impact",
+},
+{
+question: "What is the purpose of 'lessons learned' in incident response?",
+options: ["To improve future incident response efforts based on past experiences", "To block all network traffic", "To recover lost data", "To investigate security incidents"],
+correct_answer: "To improve future incident response efforts based on past experiences",
+},
+{
+question: "What is a 'security incident' in incident response?",
+options: ["A violation or imminent threat of violation of security policies, acceptable use policies, or standard security practices", "A type of keyboard", "A method for analyzing encryption keys", "A type of firewall rule"],
+correct_answer: "A violation or imminent threat of violation of security policies, acceptable use policies, or standard security practices",
+},
+{
+question: "What is 'continuous monitoring' in incident response?",
+options: ["The ongoing process of monitoring an organization's security controls and systems", "A type of antivirus software", "A type of password", "A type of encryption method"],
+correct_answer: "The ongoing process of monitoring an organization's security controls and systems",
+},
+{
+question: "What is a 'SIEM' in incident response?",
+options: ["Security Information and Event Management system", "A type of network protocol", "A type of network firewall", "A type of keyboard"],
+correct_answer: "Security Information and Event Management system",
+},
+{
+question: "What is the 'detection phase' in the incident response process?",
+options: ["The phase where security incidents are identified and assessed", "A type of malware", "A type of encryption method", "The phase where incidents are eradicated"],
+correct_answer: "The phase where security incidents are identified and assessed",
+},
+{
+question: "What is 'incident response automation'?",
+options: ["The use of automated tools and processes to respond to security incidents", "A method for preventing incidents", "A type of firewall", "A type of encryption method"],
+correct_answer: "The use of automated tools and processes to respond to security incidents",
+},
+];
+
+        const quizForm = document.getElementById("quiz-form");
+        const questionText = document.getElementById("question");
+        const choices = document.querySelectorAll('input[name="answer"]');
+        const resultText = document.getElementById("result");
+        let currentQuestion = 0;
+        let score = 0;
+
+        function displayQuestion() {
+            const q = questions[currentQuestion];
+            questionText.textContent = q.question;
+            q.options.forEach((option, index) => {
+                document.getElementById(`choice-${String.fromCharCode(65 + index)}`).textContent = option;
+            });
+        }
+
+        function checkAnswer() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (!selectedAnswer) return;
+
+            if (selectedAnswer.value === questions[currentQuestion].correct_answer) {
+                score++;
+            }
+
+            currentQuestion++;
+            if (currentQuestion < 10) {
+                displayQuestion();
+            } else {
+                quizForm.style.display = "none";
+                resultText.textContent = `Quiz completed! Your score: ${score} / 10`;
+            }
+
+            selectedAnswer.checked = false;
+        }
+
+        quizForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            checkAnswer();
+        });
+
+        displayQuestion();
+    </script>
+</body>
+</html>

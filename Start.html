@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Platform</title>
+    <style>
+        /* Add CSS styles to make the website look attractive */
+        body {
+            background-image: url('background.png'); /* Set a cyber-related background image */
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff; /* White text color */
+        }
+        
+        header {
+            background-color: #333; /* Dark gray header background color */
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #fff; /* White text color for the header */
+            font-size: 36px;
+        }
+
+        section {
+            text-align: center;
+            padding: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 1.4;
+        }
+
+        /* Button styles for an attractive call-to-action button */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #3498db; /* Blue button background color */
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #1e6b96; /* Darker blue on hover */
+        }
+
+        /* Add this CSS style to change the "Sign Up" link color */
+        section a {
+            color: #fff; /* White text color */
+            background-color: #000; /* Black background color */
+            padding: 5px 10px; /* Adjust padding for better appearance */
+            border-radius: 5px; /* Add rounded corners to the button */
+            text-decoration: none; /* Remove the default underline */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our Gaming Platform</h1>
+    </header>
+    <section>
+        <p>Explore a wide range of exciting games and enjoy your gaming experience!</p>
+        <a class="btn" href="login_page.html">Get Started</a>
+    </section>
+    
+    <section>
+        <p>Don't have an account yet? <a href="sign_up.html">Sign Up</a></p>
+    </section>
+
+    <script>
+        // JavaScript for redirecting to the login page
+        document.querySelector('.btn').addEventListener('click', function() {
+            window.location.href = 'login_page.html';
+        });
+    </script>
+</body>
+</html>

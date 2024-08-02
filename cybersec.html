@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cybersecurity Quiz</title>
+    <style>
+        body {
+            background-image: url('bg3.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+        }
+        h1 {
+            font-size: 50px;
+            color: white;
+        }
+        p {
+            font-size: 30px;
+            color: white;
+        }
+        .options label {
+            display: block;
+            font-size: 20px;
+        }
+        button[type="submit"] {
+            font-size: 30px;
+            padding: 15px 20px;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h1>CYBERSECURITY QUIZ</h1>
+<p>Test your cybersecurity knowledge! You have 50 questions. Good luck!</p>
+
+<div id="quiz-container">
+    <p id="question"></p>
+    <form id="quiz-form" class="options">
+        <label>
+            <input type="radio" name="answer" value="A">
+            <span id="choice-A"></span>
+        </label>
+        <label>
+            <input type="radio" name="answer" value="B">
+            <span id="choice-B"></span>
+        </label>
+        <label>
+            <input type="radio" name="answer" value="C">
+            <span id="choice-C"></span>
+        </label>
+        <label>
+            <input type="radio" name="answer" value="D">
+            <span id="choice-D"></span>
+        </label>
+        <button type="submit">Next</button>
+    </form>
+</div>
+
+<p id="result"></p>
+
+<script>
+    const questions = [
+        {
+            "question": "What does 'SSL' stand for?",
+            "options": ["Secure Socket Layer", "Super Secure Layer", "Simple Security Layer", "Safe Socket Layer"],
+            "correct_answer": "Secure Socket Layer"
+        },
+        {
+            "question": "What is a common method of social engineering?",
+            "options": ["Phishing", "Firewall", "Antivirus", "Malware"],
+            "correct_answer": "Phishing"
+        },
+        {
+            "question": "Which of the following is a strong password?",
+            "options": ["password123", "P@ssw0rd!", "hunter2", "CorrectHorseBatteryStaple"],
+            "correct_answer": "CorrectHorseBatteryStaple"
+        },
+        {
+            "question": "What is a firewall used for in cybersecurity?",
+            "options": ["Attacking computers", "Filtering network traffic", "Sending spam emails", "Hacking passwords"],
+            "correct_answer": "Filtering network traffic"
+        },
+        {
+            "question": "What is the most common encryption algorithm used in HTTPS?",
+            "options": ["AES", "MD5", "SHA-256", "RSA"],
+            "correct_answer": "RSA"
+        },
+        {
+            "question": "Which of the following is a common two-factor authentication method?",
+            "options": ["Username and password", "Fingerprint recognition", "Social media login", "QR code"],
+            "correct_answer": "Fingerprint recognition"
+        },
+        {
+            "question": "What is the primary purpose of a VPN?",
+            "options": ["Encrypting emails", "Hiding your IP address", "Blocking ads", "Finding Wi-Fi networks"],
+            "correct_answer": "Hiding your IP address"
+        },
+        {
+            "question": "What does 'DDoS' stand for in cybersecurity?",
+            "options": ["Data Download over Secure System", "Distributed Denial of Service", "Digital Defense of Systems", "Deep Data Scanning"],
+            "correct_answer": "Distributed Denial of Service"
+        },
+        {
+            "question": "What is the first step in a typical cybersecurity incident response plan?",
+            "options": ["Identify the attacker", "Contain the incident", "Eradicate the threat", "Recover from the incident"],
+            "correct_answer": "Identify the attacker"
+        },
+        {
+            "question": "What is the primary purpose of a firewall in network security?",
+            "options": ["Blocking all network traffic", "Allowing all network traffic", "Filtering and controlling network traffic", "Encrypting network traffic"],
+            "correct_answer": "Filtering and controlling network traffic"
+        },
+        {
+            "question": "What is the main goal of penetration testing?",
+            "options": ["To secure a network", "To find vulnerabilities", "To develop software", "To manage incidents"],
+            "correct_answer": "To find vulnerabilities"
+        },
+        {
+            "question": "Which of the following is not a common encryption algorithm?",
+            "options": ["AES", "MD5", "SHA-256", "TCP/IP"],
+            "correct_answer": "TCP/IP"
+        },
+        {
+            "question": "What does 'IoT' stand for in the context of cybersecurity?",
+            "options": ["Internet of Things", "Input/Output Technology", "Intrusion of Things", "Information over Transport"],
+            "correct_answer": "Internet of Things"
+        },
+        {
+            "question": "What is a honeypot in cybersecurity?",
+            "options": ["A sweet treat for hackers", "A type of firewall", "A deceptive system to attract attackers", "A hardware security module"],
+            "correct_answer": "A deceptive system to attract attackers"
+        },
+        {
+            "question": "What does 'CIA' stand for in the context of cybersecurity?",
+            "options": ["Central Intelligence Agency", "Computer Information Assurance", "Confidentiality, Integrity, Availability", "Cybersecurity Investigation Agency"],
+            "correct_answer": "Confidentiality, Integrity, Availability"
+        },
+        {
+            "question": "What is the purpose of an intrusion detection system (IDS) in cybersecurity?",
+            "options": ["To create strong passwords", "To prevent all network traffic", "To detect and alert on suspicious activities", "To generate encryption keys"],
+            "correct_answer": "To detect and alert on suspicious activities"
+        },
+        {
+            "question": "What is a common method for protecting data in transit over the internet?",
+            "options": ["Putting data in a drawer", "Using HTTPS with SSL/TLS encryption", "Printing it out and sending it by mail", "Shouting the data across the room"],
+            "correct_answer": "Using HTTPS with SSL/TLS encryption"
+        },
+        {
+            "question": "What is the concept of 'least privilege' in cybersecurity?",
+            "options": ["Everyone should have full access", "Everyone should have no access", "Users should have the minimum access needed", "Only administrators should have access"],
+            "correct_answer": "Users should have the minimum access needed"
+        },
+        {
+            "question": "What is a 'zero-day vulnerability' in cybersecurity?",
+            "options": ["A software bug that's been around for zero days", "A vulnerability that's been fixed for zero days", "A vulnerability that's known and actively exploited", "A bug in the calendar app"],
+            "correct_answer": "A vulnerability that's known and actively exploited"
+        },
+        {
+            "question": "What is the purpose of a CAPTCHA in web security?",
+            "options": ["It ensures you are not a robot", "It blocks all internet traffic", "It encrypts web traffic", "It scans for malware on web servers"],
+            "correct_answer": "It ensures you are not a robot"
+        },
+        {
+            "question": "What is the primary goal of ransomware?",
+            "options": ["To make backups of your data", "To encrypt your data and demand a ransom", "To delete your data", "To improve your computer's performance"],
+            "correct_answer": "To encrypt your data and demand a ransom"
+        },
+        {
+            "question": "What is the purpose of an antivirus program?",
+            "options": ["To prevent all network traffic", "To filter web traffic", "To detect and remove malware", "To optimize computer performance"],
+            "correct_answer": "To detect and remove malware"
+        },
+        {
+            "question": "What does 'HTTP' stand for in web URLs?",
+            "options": ["High-Tech Transfer Protocol", "Hypertext Transfer Protocol", "Hyperlink and Text Transfer Protocol", "Home Transfer Protocol"],
+            "correct_answer": "Hypertext Transfer Protocol"
+        },
+        {
+            "question": "What is a common method to secure a Wi-Fi network?",
+            "options": ["Leaving it open with no password", "Using a weak password", "Enabling WPA3 encryption", "Disconnecting all devices"],
+            "correct_answer": "Enabling WPA3 encryption"
+        },
+        {
+            "question": "What does 'SQL injection' refer to in cybersecurity?",
+            "options": ["Injecting passwords into SQL databases", "Injecting malicious code into a web application's database", "Injecting viruses into web traffic", "Injecting coffee into a computer"],
+            "correct_answer": "Injecting malicious code into a web application's database"
+        },
+        {
+            "question": "What is the purpose of a digital signature in email security?",
+            "options": ["To add a personal touch to emails", "To encrypt email attachments", "To verify the sender's identity and message integrity", "To make emails more colorful"],
+            "correct_answer": "To verify the sender's identity and message integrity"
+        },
+        {
+            "question": "What is a 'worm' in cybersecurity?",
+            "options": ["A computer with no internet access", "A type of malware that spreads independently", "A security expert", "A slow computer"],
+            "correct_answer": "A type of malware that spreads independently"
+        },
+        {
+            "question": "What is the primary purpose of a security policy in an organization?",
+            "options": ["To make employees wear security badges", "To set expectations and guidelines for security", "To block all incoming and outgoing network traffic", "To encrypt all emails"],
+            "correct_answer": "To set expectations and guidelines for security"
+        },
+        {
+            "question": "What does 'DNS' stand for in networking and cybersecurity?",
+            "options": ["Digital Network System", "Data and Network Security", "Domain Name System", "Dangerous Network Service"],
+            "correct_answer": "Domain Name System"
+        },
+        {
+            "question": "What is the primary purpose of a biometric security system?",
+            "options": ["To remember your favorite songs", "To identify individuals based on unique biological traits", "To protect against all types of threats", "To enhance network speed"],
+            "correct_answer": "To identify individuals based on unique biological traits"
+        },
+        {
+            "question": "What does 'HTTPS' indicate in a website URL?",
+            "options": ["Highly Temporary Protocol for Safe Browsing", "Highly Tiring Process for Secure Hosting", "Hypertext Transfer Protocol Secure", "Hidden Technology for Safer Browsing"],
+            "correct_answer": "Hypertext Transfer Protocol Secure"
+        },
+        {
+            "question": "What is 'phreaking' in the context of cybersecurity?",
+            "options": ["A type of malware", "A type of programming language", "Hacking telephone systems", "Protecting networks from hackers"],
+            "correct_answer": "Hacking telephone systems"
+        },
+        {
+            "question": "What is the purpose of a content security policy (CSP) in web security?",
+            "options": ["To block all web traffic", "To filter out ads", "To define what web content is allowed to load", "To encrypt web content"],
+            "correct_answer": "To define what web content is allowed to load"
+        },
+        {
+            "question": "What does 'BYOD' stand for in the context of cybersecurity?",
+            "options": ["Bring Your Own Drinks", "Bring Your Own Device", "Be Your Own Defender", "Build Your Own Database"],
+            "correct_answer": "Bring Your Own Device"
+        },
+        {
+            "question": "What is a 'brute force attack' in cybersecurity?",
+            "options": ["A gentle approach to hacking", "An elegant method of intrusion", "An attempt to gain unauthorized access by trying all possible combinations", "A type of encryption"],
+            "correct_answer": "An attempt to gain unauthorized access by trying all possible combinations"
+        },
+        {
+            "question": "What is the primary goal of a security awareness training program?",
+            "options": ["To bore employees", "To make everyone an expert in cybersecurity", "To educate employees about security risks and best practices", "To block access to websites"],
+            "correct_answer": "To educate employees about security risks and best practices"
+        },
+        {
+            "question": "What is 'steganography' in cybersecurity?",
+            "options": ["A type of encryption", "A method of hiding data within other data", "A cryptographic algorithm", "A firewall setting"],
+            "correct_answer": "A method of hiding data within other data"
+        },
+        {
+            "question": "What is a 'keylogger' in cybersecurity?",
+            "options": ["A tool for making keys on a keyboard", "A device for copying keys", "A type of software or hardware that records keystrokes", "A password manager"],
+            "correct_answer": "A type of software or hardware that records keystrokes"
+        },
+        {
+            "question": "What is the purpose of 'salting' passwords in cybersecurity?",
+            "options": ["To add flavor to passwords", "To make passwords taste better", "To strengthen password security by adding random data", "To melt passwords"],
+            "correct_answer": "To strengthen password security by adding random data"
+        },
+        {
+            "question": "What is the primary goal of a secure coding practice in software development?",
+            "options": ["To make code easier to read", "To hide code from developers", "To reduce the number of features", "To eliminate security vulnerabilities in code"],
+            "correct_answer": "To eliminate security vulnerabilities in code"
+        },
+        {
+            "question": "What does '2FA' stand for in cybersecurity?",
+            "options": ["2 Fingers Authentication", "2-Factor Authentication", "2 Feet Authentication", "2 Fun Authentication"],
+            "correct_answer": "2-Factor Authentication"
+        },
+        {
+            "question": "What is the main goal of a security patch in software updates?",
+            "options": ["To add new features", "To slow down the software", "To fix security vulnerabilities", "To change the user interface"],
+            "correct_answer": "To fix security vulnerabilities"
+        },
+        {
+            "question": "What is the primary purpose of a security incident report?",
+            "options": ["To generate reports about incidents", "To collect information about security incidents for analysis and response", "To prevent incidents from happening", "To make employees nervous"],
+            "correct_answer": "To collect information about security incidents for analysis and response"
+        },
+        {
+            "question": "What is a 'man-in-the-middle attack' in cybersecurity?",
+            "options": ["A type of computer virus", "A type of firewall", "An attacker intercepts communication between two parties without their knowledge", "A type of encryption"],
+            "correct_answer": "An attacker intercepts communication between two parties without their knowledge"
+        },
+        {
+            "question": "What is the purpose of 'access control' in cybersecurity?",
+            "options": ["To control the temperature in data centers", "To control who can access what resources and when", "To control spam emails", "To control the weather"],
+            "correct_answer": "To control who can access what resources and when"
+        },
+        {
+            "question": "What is 'spear phishing' in the context of cybersecurity?",
+            "options": ["A fishing technique", "A type of encryption", "A targeted form of phishing with customized messages", "A type of firewall"],
+            "correct_answer": "A targeted form of phishing with customized messages"
+        },
+        {
+            "question": "What is 'metadata' in the context of information security?",
+            "options": ["Data that describes other data, like file properties or timestamps", "Data hidden in the middle of a file", "A type of malware", "Data used for advertising purposes"],
+            "correct_answer": "Data that describes other data, like file properties or timestamps"
+        },
+        {
+            "question": "What is 'ransomware as a service' (RaaS) in cybersecurity?",
+            "options": ["A new way to pay for online services", "A service that provides help with Ransomware attacks", "A service for renting digital movies", "A cloud-based cybersecurity tool"],
+            "correct_answer": "A service that provides help with Ransomware attacks"
+        },
+        {
+            "question": "What is a 'firewall rule' in network security?",
+            "options": ["A rule that requires you to make a fire", "A rule that blocks all network traffic", "A rule that defines how network traffic is handled", "A rule for playing with fire"],
+            "correct_answer": "A rule that defines how network traffic is handled"
+        },
+        {
+            "question": "What does 'IoC' stand for in cybersecurity?",
+            "options": ["Input/Output Control", "Internet of Computers", "Indicator of Compromise", "Internet over Cloud"],
+            "correct_answer": "Indicator of Compromise"
+        },
+        {
+            "question": "What is a 'zero-trust model' in cybersecurity?",
+            "options": ["A model that trusts everyone", "A model that trusts nothing", "A model that trusts only certain individuals", "A model that trusts all devices"],
+            "correct_answer": "A model that trusts nothing"
+        },
+        {
+            "question": "What is the primary purpose of a security audit?",
+            "options": ["To entertain employees", "To discover and address security vulnerabilities", "To delete files", "To create new security policies"],
+            "correct_answer": "To discover and address security vulnerabilities"
+        },
+        {
+            "question": "What is the purpose of 'data encryption' in cybersecurity?",
+            "options": ["To make data disappear", "To make data unreadable without the correct decryption key", "To make data easier to access", "To make data more colorful"],
+            "correct_answer": "To make data unreadable without the correct decryption key"
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const questionElement = document.getElementById('question');
+    const choices = Array.from(document.getElementsByClassName('options'));
+    const result = document.getElementById('result');
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion(questionIndex) {
+        const question = questions[questionIndex];
+        questionElement.textContent = (questionIndex + 1) + '. ' + question.question;
+        question.options.forEach((option, index) => {
+            choices[index].textContent = option;
+        });
+    }
+
+    function checkAnswer() {
+        const userAnswer = choices.find(choice => choice.firstElementChild.checked);
+
+        if (userAnswer) {
+            const userResponse = userAnswer.firstElementChild.value;
+            const question = questions[currentQuestion];
+
+            if (userResponse === question.correct_answer) {
+                score++;
+            }
+
+            currentQuestion++;
+
+            if (currentQuestion < questions.length) {
+                loadQuestion(currentQuestion);
+            } else {
+                quizContainer.style.display = 'none';
+                result.innerHTML = `
+                    <h1>You scored ${score} out of ${questions.length} questions.</h1>
+                    <p>Thanks for taking the Cybersecurity Quiz!</p>
+                `;
+            }
+        }
+    }
+
+    document.getElementById('quiz-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        checkAnswer();
+    });
+
+    loadQuestion(currentQuestion);
+</script>
+
+</body>
+</html>
